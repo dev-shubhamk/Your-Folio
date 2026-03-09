@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, Sparkles, CreditCard, LogOut } from 'lucide-react';
+import { Home, Folder, AppWindow, ShieldAlert, LogOut, Plus, Sparkles } from 'lucide-react';
 
 function GlobalLayout() {
   const navigate = useNavigate();
@@ -12,39 +12,59 @@ function GlobalLayout() {
 
   return (
     <div className="global-layout">
-      {/* Global Sidebar Nav */}
-      <nav className="global-nav">
-        <div className="nav-brand" style={{marginTop: '1rem', marginBottom: '2rem', cursor: 'pointer'}} onClick={() => navigate('/')}>
-          <img src="/logo.png" className="app-logo" alt="Your Folio" />
+      {/* Expanded Canvas-style Sidebar Nav */}
+      <nav className="global-nav expanded-nav">
+        <div className="nav-brand" style={{marginTop: '0.5rem', marginBottom: '1.5rem', cursor: 'pointer', paddingLeft: '1.5rem', width: '100%', display: 'flex'}} onClick={() => navigate('/')}>
+          <img src="/logo.png" className="app-logo" style={{height:'36px', width:'auto'}} alt="Your Folio" />
         </div>
         
-        <div className="nav-links">
-          <NavLink to="/app" end className={({isActive}) => `gnav-btn ${isActive ? 'active' : ''}`} title="Editor">
-            <LayoutDashboard size={22} />
-            <span className="tooltip">Editor</span>
+        <div style={{padding: '0 1.5rem', width: '100%', marginBottom: '2rem'}}>
+           <button className="create-big-btn" onClick={() => navigate('/editor')}>
+              <Plus size={20} />
+              <span>Create design</span>
+           </button>
+        </div>
+
+        <div className="nav-links expanded-links">
+          <NavLink to="/app" end className={({isActive}) => `gnav-btn ${isActive ? 'active' : ''}`}>
+            <Home size={20} />
+            <span className="nav-text">Home</span>
           </NavLink>
           
-          <NavLink to="/app/assistant" className={({isActive}) => `gnav-btn ${isActive ? 'active' : ''}`} title="AI Assistant">
-            <Sparkles size={22} />
-            <span className="tooltip">AI Assistant</span>
+          <NavLink to="/app/projects" className={({isActive}) => `gnav-btn ${isActive ? 'active' : ''}`}>
+             <Folder size={20} />
+             <span className="nav-text">Projects</span>
           </NavLink>
           
-          <NavLink to="/app/subscription" className={({isActive}) => `gnav-btn ${isActive ? 'active' : ''}`} title="Billing">
-            <CreditCard size={22} />
-            <span className="tooltip">Billing</span>
+          <NavLink to="/app/templates" className={({isActive}) => `gnav-btn ${isActive ? 'active' : ''}`}>
+             <AppWindow size={20} />
+             <span className="nav-text">Templates</span>
+          </NavLink>
+          
+          <NavLink to="/app/brand" className={({isActive}) => `gnav-btn ${isActive ? 'active' : ''}`}>
+             <ShieldAlert size={20} />
+             <span className="nav-text">Brand</span>
+          </NavLink>
+
+          <NavLink to="/app/assistant" className={({isActive}) => `gnav-btn ${isActive ? 'active' : ''}`}>
+            <Sparkles size={20} />
+            <span className="nav-text">AI Assistant</span>
           </NavLink>
         </div>
         
-        <div className="nav-user" style={{marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'center'}}>
-          <button onClick={handleLogout} className="gnav-btn" style={{background: 'transparent', border: 'none', cursor: 'pointer'}}>
+        <div className="nav-user profile-dock">
+          <button onClick={handleLogout} className="gnav-btn" style={{background: 'transparent', border: 'none', cursor: 'pointer', width: '100%', justifyContent: 'flex-start'}}>
             <LogOut size={20} />
-            <span className="tooltip">Logout</span>
+            <span className="nav-text">Logout</span>
           </button>
-          <img src="https://ui-avatars.com/api/?name=User&background=6366f1&color=fff" alt="User" />
+          <div className="user-pill">
+             <img src="https://ui-avatars.com/api/?name=User&background=6366f1&color=fff" alt="User" />
+             <span className="nav-text">Personal</span>
+          </div>
         </div>
       </nav>
 
-      {/* Main Feature Area Content (Outlet handles Editor/Assistant/Subscription) */}
+      {/* Main Feature Area Content */}
       <div className="global-content">
         <Outlet />
       </div>

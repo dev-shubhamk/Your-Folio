@@ -1,6 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import GlobalLayout from './GlobalLayout';
+import Dashboard from './pages/Dashboard';
 import Editor from './pages/Editor';
 import Assistant from './pages/Assistant';
 import Subscription from './pages/Subscription';
@@ -15,8 +16,9 @@ function App() {
       <Route path="/signup" element={<SignUp />} />
       <Route path="/login" element={<Login />} />
       
+      <Route path="/editor" element={<Editor />} />
       <Route path="/app" element={<GlobalLayout />}>
-        <Route index element={<Editor />} />
+        <Route index element={<Dashboard />} />
         <Route path="assistant" element={<Assistant />} />
         <Route path="subscription" element={<Subscription />} />
       </Route>
