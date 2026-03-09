@@ -39,7 +39,7 @@ function Landing() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
         >
-          The Portfolio Engine <br />
+          Your-Folio Engine <br />
           <span className="gradient-text">for Creatives.</span>
         </motion.h1>
         
@@ -49,7 +49,7 @@ function Landing() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
         >
-          Join thousands of designers, developers, and creatives using our unified toolchain
+          Join thousands of designers, developers, and creatives using Your-Folio
           to craft perfectly animated, interactive portfolios with unprecedented speed.
         </motion.p>
         
@@ -155,56 +155,60 @@ function Landing() {
         </div>
       </section>
 
-      <section className="photo-gallery-section">
+      <section className="smooth-carousel-section">
         <div className="section-header">
-          <h2>Stunning visual designs.</h2>
-          <p>We provide the canvas, you provide the masterpiece. Built for creatives who care about details.</p>
+          <h2>Stunning visual templates in motion.</h2>
+          <p>We provide the canvas. Built for creatives who care about precise details and fluid experiences.</p>
         </div>
-        <div className="gallery-grid">
-          <motion.div className="gallery-item" whileHover={{ scale: 1.03 }}>
-             <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80" alt="Creative Workspace" />
-          </motion.div>
-          <motion.div className="gallery-item" whileHover={{ scale: 1.03 }}>
-             {/* Swapped broken charts image for a high reliability web design image */}
-             <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="Digital Design" />
-          </motion.div>
-          <motion.div className="gallery-item" whileHover={{ scale: 1.03 }}>
-             <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80" alt="Coding Web App" />
-          </motion.div>
-        </div>
-      </section>
-
-      <section className="portfolio-showcase-section">
-        <div className="section-header">
-          <h2>Unlimited Portfolio Possibilities.</h2>
-          <p>From minimal dev-environments to vibrant creative showrooms, build exactly what represents you.</p>
-        </div>
-        <div className="portfolio-showcase-grid">
-           <div className="portfolio-showcase-card large">
-              <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1200&q=80" alt="Sleek Developer Portfolio" />
-              <div className="showcase-caption">
-                 <h3>Developer Theme</h3>
-                 <p>Dark mode optimized for your GitHub repos.</p>
-              </div>
-           </div>
-           
-           <div className="portfolio-showcase-column">
-             <div className="portfolio-showcase-card">
-                <img src="https://images.unsplash.com/photo-1542744094-3a31f272c490?auto=format&fit=crop&w=600&q=80" alt="Agency Theme" />
-                <div className="showcase-caption">
-                   <h3>Agency Theme</h3>
-                   <p>Built for teams and startups.</p>
+        
+        <div className="marquee-wrapper">
+          <div className="marquee">
+             <div className="marquee-group">
+                <div className="marquee-item">
+                   <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80" alt="Creative Workspace" />
+                   <div className="marquee-overlay"><span>Creative Theme</span></div>
+                </div>
+                <div className="marquee-item">
+                   <img src="https://images.unsplash.com/photo-1542744094-3a31f272c490?auto=format&fit=crop&w=600&q=80" alt="Agency Template" />
+                   <div className="marquee-overlay"><span>Agency Layout</span></div>
+                </div>
+                <div className="marquee-item">
+                   <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=600&q=80" alt="Code Web App" />
+                   <div className="marquee-overlay"><span>SaaS Interface</span></div>
+                </div>
+                <div className="marquee-item">
+                   <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80" alt="Developer Portfolio" />
+                   <div className="marquee-overlay"><span>Developer Dark</span></div>
+                </div>
+                <div className="marquee-item">
+                   <img src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=600&q=80" alt="Design Portfolio" />
+                   <div className="marquee-overlay"><span>Minimal Portfolio</span></div>
                 </div>
              </div>
-             
-             <div className="portfolio-showcase-card">
-                <img src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=600&q=80" alt="Creative Theme" />
-                <div className="showcase-caption">
-                   <h3>Creative Theme</h3>
-                   <p>Elegant layouts for designers.</p>
+             {/* Duplicate group for seamless infinite looping */}
+             <div aria-hidden="true" className="marquee-group">
+                <div className="marquee-item">
+                   <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80" alt="Creative Workspace" />
+                   <div className="marquee-overlay"><span>Creative Theme</span></div>
+                </div>
+                <div className="marquee-item">
+                   <img src="https://images.unsplash.com/photo-1542744094-3a31f272c490?auto=format&fit=crop&w=600&q=80" alt="Agency Template" />
+                   <div className="marquee-overlay"><span>Agency Layout</span></div>
+                </div>
+                <div className="marquee-item">
+                   <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=600&q=80" alt="Code Web App" />
+                   <div className="marquee-overlay"><span>SaaS Interface</span></div>
+                </div>
+                <div className="marquee-item">
+                   <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80" alt="Developer Portfolio" />
+                   <div className="marquee-overlay"><span>Developer Dark</span></div>
+                </div>
+                <div className="marquee-item">
+                   <img src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=600&q=80" alt="Design Portfolio" />
+                   <div className="marquee-overlay"><span>Minimal Portfolio</span></div>
                 </div>
              </div>
-           </div>
+          </div>
         </div>
       </section>
 
