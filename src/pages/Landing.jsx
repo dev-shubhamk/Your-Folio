@@ -13,10 +13,9 @@ function Landing() {
           </Link>
         </div>
         <div className="nav-actions">
-          <Link to="/app" className="nav-link">Features</Link>
           <Link to="/app/subscription" className="nav-link">Pricing</Link>
           <Link to="/login" className="nav-link login">Log in</Link>
-          <Link to="/signup" className="nav-btn primary">Get Started Free</Link>
+          <Link to="/signup" className="nav-btn primary pulse-glow">Start creating your portfolio</Link>
         </div>
       </nav>
 
@@ -61,8 +60,8 @@ function Landing() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
         >
-          <Link to="/signup" className="hero-btn primary">
-            Start Building Free <ArrowRight size={18} />
+          <Link to="/signup" className="hero-btn primary pulse-glow">
+            Start creating your portfolio <ArrowRight size={18} />
           </Link>
           <Link to="/app" className="hero-btn secondary">
             Explore the Editor

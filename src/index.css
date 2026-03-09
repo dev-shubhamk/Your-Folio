@@ -1502,6 +1502,35 @@ body {
   border-color: var(--border-light);
 }
 
+@keyframes intensePulseGlow {
+  0% {
+    box-shadow: 0 0 20px 0px rgba(139, 92, 246, 0.5), 0 0 10px 0px rgba(0, 229, 255, 0.4);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 50px 10px rgba(139, 92, 246, 0.7), 0 0 30px 10px rgba(0, 229, 255, 0.5);
+    transform: scale(1.03);
+  }
+  100% {
+    box-shadow: 0 0 20px 0px rgba(139, 92, 246, 0.5), 0 0 10px 0px rgba(0, 229, 255, 0.4);
+    transform: scale(1);
+  }
+}
+
+.pulse-glow {
+  background: linear-gradient(135deg, #a855f7, var(--accent-primary)) !important;
+  color: white !important;
+  border: none !important;
+  animation: intensePulseGlow 2.5s infinite ease-in-out;
+}
+
+.pulse-glow:hover {
+  animation: none;
+  transform: scale(1.06) !important;
+  background: linear-gradient(135deg, #9333ea, #00c6dd) !important;
+  box-shadow: 0 0 80px 15px rgba(139, 92, 246, 0.8), 0 0 40px 10px rgba(0, 229, 255, 0.7) !important;
+}
+
 .features-section, .portfolio-showcase-section, .photo-gallery-section, .stats-section, .testimonials-section, .bottom-cta {
   background: var(--bg-dark);
   border-top: 1px solid var(--border-subtle);

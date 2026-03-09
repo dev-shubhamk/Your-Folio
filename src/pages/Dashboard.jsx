@@ -8,12 +8,12 @@ function Dashboard() {
   const navigate = useNavigate();
 
   const mockDesigns = [
-    { title: "Moneypick.pdf", time: "Edited 34 minutes ago", img: "https://images.unsplash.com/photo-1557682250-33bd709cbe85" },
-    { title: "2nd demo.pdf", time: "Edited 19 hours ago", img: "https://images.unsplash.com/photo-1497215728101-856f4ea42174" },
-    { title: "1st demo.pdf", time: "Edited 20 hours ago", img: "https://images.unsplash.com/photo-1512486130939-2c4f79935e4f" },
-    { title: "45.pdf", time: "Edited 1 day ago", img: "https://images.unsplash.com/photo-1522204523234-8729aa6e3d5f" },
-    { title: "Untitled Design", time: "Edited 5 days ago", img: "https://images.unsplash.com/photo-1542744094-3a31f272c490" },
-    { title: "Untitled Design", time: "Edited 6 days ago", img: "https://images.unsplash.com/photo-1611162617474-5b21e879e113" }
+    { title: "Photography Showcase", time: "Edited 34 minutes ago", img: "https://images.unsplash.com/photo-1557682250-33bd709cbe85" },
+    { title: "Agency Landing Page", time: "Edited 19 hours ago", img: "https://images.unsplash.com/photo-1497215728101-856f4ea42174" },
+    { title: "SaaS Product UI Kit", time: "Edited 20 hours ago", img: "https://images.unsplash.com/photo-1512486130939-2c4f79935e4f" },
+    { title: "Developer Portfolio", time: "Edited 1 day ago", img: "https://images.unsplash.com/photo-1522204523234-8729aa6e3d5f" },
+    { title: "Aesthetic Blog Theme", time: "Edited 5 days ago", img: "https://images.unsplash.com/photo-1542744094-3a31f272c490" },
+    { title: "Freelance Designer Setup", time: "Edited 6 days ago", img: "https://images.unsplash.com/photo-1611162617474-5b21e879e113" }
   ];
 
   return (
@@ -73,8 +73,8 @@ function Dashboard() {
                 <CloudUpload size={24} />
               </div>
               <div className="folder-info">
-                <h4>Uploads</h4>
-                <p><Lock size={12} style={{marginRight: '0.2rem'}} /> Private</p>
+                <h4>Portfolio Uploads</h4>
+                <p>Personal Assets</p>
               </div>
             </div>
           </div>
