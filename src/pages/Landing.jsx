@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Sparkles, ArrowRight, Layers, Zap, PenTool, Users, LayoutTemplate, Clock, Headphones } from 'lucide-react';
 
 function Landing() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('yourfolio_token');
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
   return (
     <div className="landing-page">
       <nav className="landing-nav">
@@ -14,8 +23,14 @@ function Landing() {
         </div>
         <div className="nav-actions">
           <Link to="/app/subscription" className="nav-link">Pricing</Link>
-          <Link to="/login" className="nav-link login">Log in</Link>
-          <Link to="/signup" className="nav-btn primary pulse-glow">Start creating your portfolio</Link>
+          {!isLoggedIn ? (
+            <>
+              <Link to="/login" className="nav-link login">Log in</Link>
+              <Link to="/signup" className="nav-btn primary pulse-glow">Start creating your portfolio</Link>
+            </>
+          ) : (
+             <Link to="/app" className="nav-btn primary pulse-glow">Enter Workspace</Link>
+          )}
         </div>
       </nav>
 
@@ -60,9 +75,15 @@ function Landing() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
         >
-          <Link to="/signup" className="hero-btn primary pulse-glow">
-            Start creating your portfolio <ArrowRight size={18} />
-          </Link>
+          {isLoggedIn ? (
+             <Link to="/app" className="hero-btn primary pulse-glow">
+                Go to Workspace Dashboard <ArrowRight size={18} />
+             </Link>
+          ) : (
+             <Link to="/signup" className="hero-btn primary pulse-glow">
+               Start creating your portfolio <ArrowRight size={18} />
+             </Link>
+          )}
           <Link to="/app" className="hero-btn secondary">
             Explore the Editor
           </Link>
@@ -216,9 +237,15 @@ function Landing() {
       <section className="bottom-cta">
         <h2>Ready to upgrade your web presence?</h2>
         <p>Join the community and start building your free portfolio today.</p>
-        <Link to="/signup" className="hero-btn primary" style={{marginTop: '2rem'}}>
-          Create Your Free Account <ArrowRight size={18} />
-        </Link>
+        {isLoggedIn ? (
+            <Link to="/app" className="hero-btn primary pulse-glow" style={{marginTop: '2rem'}}>
+              Enter Dashboard <ArrowRight size={18} />
+            </Link>
+        ) : (
+            <Link to="/signup" className="hero-btn primary pulse-glow" style={{marginTop: '2rem'}}>
+              Start Creating Free <ArrowRight size={18} />
+            </Link>
+        )}
       </section>
 
       <footer className="landing-footer">
