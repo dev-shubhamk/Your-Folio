@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Monitor, Phone, Settings2, Sparkles, Layout, Palette, Type, CheckCircle, Save, Image as ImageIcon, Grid, CircleSlash, Box, Dribbble, Github, Twitter, Linkedin, Square, Circle, Search, Layers, Hexagon, Triangle } from 'lucide-react';
-import { fetchPortfolio, savePortfolio } from '../services/api';
+import { Monitor, Phone, Settings2, Sparkles, Layout, Palette, Type, CheckCircle, Save, Image as ImageIcon, Grid, CircleSlash, Box, Dribbble, Github, Twitter, Linkedin, Square, Circle, Search, Layers, Hexagon, Triangle, Briefcase, BarChart2, Globe, Inbox, ArrowRight, User } from 'lucide-react';
+import { fetchPortfolio, savePortfolio, fetchProjects, saveProject, fetchSEO, fetchAnalytics, getMessages, uploadFile } from '../services/api';
 
 function Editor() {
   const [activeTab, setActiveTab] = useState('templates');
@@ -23,20 +23,35 @@ function Editor() {
     showSocials: 1
   });
 
+  const [projects, setProjects] = useState([]);
+  const [seo, setSEO] = useState({ title: '', description: '', keywords: '' });
+  const [analytics, setAnalytics] = useState(null);
+  const [messages, setMessages] = useState([]);
   const [device, setDevice] = useState('desktop');
 
   useEffect(() => {
-    // Load portfolio config from Backend
+    // Load portfolio config and comprehensive backend data
     const loadConfig = async () => {
       try {
-        const data = await fetchPortfolio();
+        const [portData, projData, seoData, analyticsData, msgData] = await Promise.all([
+           fetchPortfolio(),
+           fetchProjects(),
+           fetchSEO(),
+           fetchAnalytics(),
+           getMessages()
+        ]);
+        
         setPortfolio(prev => ({
           ...prev,
-          ...data,
-          showSocials: data.showSocials !== undefined ? data.showSocials : 1
+          ...portData,
+          showSocials: portData.showSocials !== undefined ? portData.showSocials : 1
         }));
+        setProjects(projData);
+        setSEO(seoData);
+        setAnalytics(analyticsData);
+        setMessages(msgData);
       } catch (err) {
-        console.error("Error loading portfolio:", err.message);
+        console.error("Error loading workspace data:", err.message);
       }
     };
     loadConfig();
@@ -63,7 +78,7 @@ function Editor() {
       {/* Your-Folio Advanced Sidebar Workspace */}
       <aside className="editor-sidebar yourfolio-sidebar">
         {/* Left Tabs */}
-        <div className="yourfolio-tabs">
+        <div className="yourfolio-tabs" style={{overflowY: 'auto', paddingRight: '4px'}}>
           <button className={`yourfolio-tab-btn ${activeTab === 'templates' ? 'active' : ''}`} onClick={() => setActiveTab('templates')}>
             <Layout size={20} /><span>Designs</span>
           </button>
@@ -76,11 +91,28 @@ function Editor() {
           <button className={`yourfolio-tab-btn ${activeTab === 'media' ? 'active' : ''}`} onClick={() => setActiveTab('media')}>
             <ImageIcon size={20} /><span>Media</span>
           </button>
+          <button className={`yourfolio-tab-btn ${activeTab === 'projects' ? 'active' : ''}`} onClick={() => setActiveTab('projects')}>
+             <Briefcase size={20} /><span>Projects</span>
+          </button>
           <button className={`yourfolio-tab-btn ${activeTab === 'background' ? 'active' : ''}`} onClick={() => setActiveTab('background')}>
             <Grid size={20} /><span>Backdrop</span>
           </button>
           <button className={`yourfolio-tab-btn ${activeTab === 'profile' ? 'active' : ''}`} onClick={() => setActiveTab('profile')}>
-            <Settings2 size={20} /><span>Data</span>
+            <User size={20} /><span>Data</span>
+          </button>
+          <div style={{height: 1, width: '40px', background: 'rgba(255,255,255,0.1)', margin: '0.5rem 0'}}></div>
+          <button className={`yourfolio-tab-btn ${activeTab === 'messages' ? 'active' : ''}`} onClick={() => setActiveTab('messages')}>
+            <div style={{position:'relative'}}>
+               <Inbox size={20} />
+               {messages.length > 0 && <span style={{position:'absolute', top:-4, right:-4, background:'#f43f5e', color:'white', fontSize:'10px', borderRadius:'10px', width:14, height:14, display:'flex', alignItems:'center', justifyContent:'center'}}>{messages.length}</span>}
+            </div>
+            <span>Inbox</span>
+          </button>
+          <button className={`yourfolio-tab-btn ${activeTab === 'analytics' ? 'active' : ''}`} onClick={() => setActiveTab('analytics')}>
+             <BarChart2 size={20} /><span>Analytics</span>
+          </button>
+          <button className={`yourfolio-tab-btn ${activeTab === 'seo' ? 'active' : ''}`} onClick={() => setActiveTab('seo')}>
+             <Globe size={20} /><span>SEO</span>
           </button>
         </div>
 
@@ -252,6 +284,114 @@ function Editor() {
                           <span style={{textTransform:'capitalize'}}>{tex}</span>
                        </button>
                      ))}
+                  </div>
+                </motion.div>
+              )}
+              {activeTab === 'projects' && (
+                <motion.div key="projects" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="control-group">
+                  <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'1rem'}}>
+                     <label className="section-label" style={{marginBottom:0}}>Portfolio Case Studies</label>
+                     <button style={{background:'var(--accent-primary)', border:'none', color:'white', padding:'0.4rem 0.8rem', borderRadius:'6px', fontSize:'0.8rem', cursor:'pointer', fontWeight:'600'}}>+ New</button>
+                  </div>
+                  <div style={{display:'flex', flexDirection:'column', gap:'0.75rem', maxHeight: '450px', overflowY:'auto'}}>
+                     {projects.length === 0 ? (
+                        <div style={{padding:'2rem', textAlign:'center', border:'1px dashed var(--border-subtle)', borderRadius:'12px', color:'var(--text-muted)'}}>
+                           <Briefcase size={32} style={{margin:'0 auto 1rem', opacity:0.5}} />
+                           <p style={{fontSize:'0.9rem', marginBottom:'1rem'}}>You haven't added any projects yet.</p>
+                        </div>
+                     ) : (
+                        projects.map((proj, idx) => (
+                           <div key={idx} style={{background:'rgba(255,255,255,0.05)', padding:'1rem', borderRadius:'12px', border:'1px solid var(--border-subtle)'}}>
+                              <h4 style={{margin:0, fontSize:'1rem', color:'white'}}>{proj.title}</h4>
+                              <p style={{fontSize:'0.8rem', color:'var(--text-muted)', margin:'0.25rem 0 0.5rem'}}>{proj.description}</p>
+                           </div>
+                        ))
+                     )}
+                     
+                     {/* Demo mocked project for empty state preview */}
+                     {projects.length === 0 && (
+                        <div style={{background:'rgba(255,255,255,0.03)', padding:'1rem', borderRadius:'12px', border:'1px solid var(--border-subtle)', opacity:0.7}}>
+                           <h4 style={{margin:0, fontSize:'1rem', color:'white'}}>Fintech App Redesign</h4>
+                           <p style={{fontSize:'0.8rem', color:'var(--text-muted)', margin:'0.25rem 0'}}>Increased checkout conversion by 45% using streamlined UX.</p>
+                           <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71" style={{width:'100%', height: '80px', objectFit:'cover', borderRadius:'6px', marginTop:'0.5rem'}} alt="Demo"/>
+                        </div>
+                     )}
+                  </div>
+                </motion.div>
+              )}
+
+              {activeTab === 'seo' && (
+                <motion.div key="seo" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="control-group">
+                  <label className="section-label"><Globe size={16} /> Web Visibility</label>
+                  <div className="input-group">
+                    <label>Meta Title</label>
+                    <input type="text" placeholder="John Doe - Lead Designer" value={seo.title} onChange={e => setSEO({...seo, title: e.target.value})} />
+                  </div>
+                  <div className="input-group">
+                    <label>Meta Description</label>
+                    <textarea placeholder="Portfolio of John Doe, specializing in SaaS UX." rows="3" value={seo.description} onChange={e => setSEO({...seo, description: e.target.value})} />
+                  </div>
+                  <div className="input-group">
+                    <label>Custom Domain</label>
+                    <div style={{display:'flex', gap:'0.5rem'}}>
+                       <input type="text" placeholder="www.johndoe.com" style={{flex:1}} />
+                       <button style={{background:'var(--bg-dark)', border:'1px solid var(--border-subtle)', color:'white', padding:'0 1rem', borderRadius:'8px', cursor:'pointer'}}>Connect</button>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+
+              {activeTab === 'analytics' && (
+                <motion.div key="analytics" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="control-group">
+                  <label className="section-label"><BarChart2 size={16} /> Real-time Analytics</label>
+                  {analytics ? (
+                     <div style={{display:'flex', flexDirection:'column', gap:'1rem'}}>
+                        <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'1rem'}}>
+                           <div style={{background:'var(--bg-dark)', padding:'1rem', borderRadius:'12px', border:'1px solid var(--border-subtle)'}}>
+                              <div style={{fontSize:'0.8rem', color:'var(--text-muted)'}}>Page Views</div>
+                              <div style={{fontSize:'1.5rem', fontWeight:'bold', color:'white'}}>{analytics.pageViews}</div>
+                           </div>
+                           <div style={{background:'var(--bg-dark)', padding:'1rem', borderRadius:'12px', border:'1px solid var(--border-subtle)'}}>
+                              <div style={{fontSize:'0.8rem', color:'var(--text-muted)'}}>Unique Visitors</div>
+                              <div style={{fontSize:'1.5rem', fontWeight:'bold', color:'white'}}>{analytics.uniqueVisitors}</div>
+                           </div>
+                        </div>
+                        <div style={{background:'var(--bg-dark)', padding:'1rem', borderRadius:'12px', border:'1px solid var(--border-subtle)'}}>
+                           <div style={{fontSize:'0.8rem', color:'var(--text-muted)', marginBottom:'0.5rem'}}>Top Traffic Sources</div>
+                           {analytics.topReferrers.map((ref, i) => (
+                              <div key={i} style={{display:'flex', justifyContent:'space-between', padding:'0.5rem 0', borderBottom: i < analytics.topReferrers.length-1 ? '1px solid rgba(255,255,255,0.05)' : 'none'}}>
+                                 <span style={{fontSize:'0.9rem'}}>{ref}</span>
+                                 <span style={{color:'var(--accent-primary)', fontSize:'0.9rem'}}>{Math.floor(Math.random()*40)+10}%</span>
+                              </div>
+                           ))}
+                        </div>
+                     </div>
+                  ) : (
+                     <div style={{color:'var(--text-muted)', fontSize:'0.9rem'}}>Loading metrics...</div>
+                  )}
+                </motion.div>
+              )}
+
+              {activeTab === 'messages' && (
+                <motion.div key="messages" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="control-group">
+                  <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'1rem'}}>
+                     <label className="section-label" style={{marginBottom:0}}>Contact Inbox</label>
+                  </div>
+                  <div style={{display:'flex', flexDirection:'column', gap:'0.75rem'}}>
+                     {messages.length === 0 ? (
+                        <div style={{padding:'2rem', textAlign:'center', color:'var(--text-muted)'}}>No new messages.</div>
+                     ) : (
+                        messages.map(msg => (
+                           <div key={msg.id} style={{background:'var(--bg-dark)', padding:'1rem', borderRadius:'12px', border:'1px solid var(--border-light)'}}>
+                              <div style={{display:'flex', justifyContent:'space-between', marginBottom:'0.5rem'}}>
+                                 <h5 style={{margin:0, fontSize:'0.95rem', color:'white'}}>{msg.name}</h5>
+                                 <span style={{fontSize:'0.75rem', color:'var(--text-muted)'}}>{msg.date}</span>
+                              </div>
+                              <div style={{fontSize:'0.8rem', color:'var(--accent-primary)', marginBottom:'0.5rem'}}>{msg.email}</div>
+                              <p style={{margin:0, fontSize:'0.85rem', color:'var(--text-muted)', lineHeight:'1.4'}}>{msg.message}</p>
+                           </div>
+                        ))
+                     )}
                   </div>
                 </motion.div>
               )}

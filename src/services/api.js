@@ -95,3 +95,89 @@ export const savePortfolio = async (portfolioData) => {
     }, 400);
   });
 };
+
+/* --- ADVANCED PORTFOLIO BACKEND FEATURES --- */
+
+// 1. Project / Case Study Management
+export const fetchProjects = async () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const token = localStorage.getItem('yourfolio_token');
+      if (!token) return resolve([]);
+      const email = atob(token);
+      const users = JSON.parse(localStorage.getItem('yourfolio_users') || '{}');
+      const user = users[email];
+      if (!user) return resolve([]);
+      const projects = JSON.parse(localStorage.getItem('yourfolio_projects') || '{}');
+      resolve(projects[user.id] || []);
+    }, 200);
+  });
+};
+
+export const saveProject = async (projectData) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const token = localStorage.getItem('yourfolio_token');
+      if (!token) return reject(new Error("Unauthorized"));
+      const email = atob(token);
+      const users = JSON.parse(localStorage.getItem('yourfolio_users') || '{}');
+      const user = users[email];
+      
+      const projects = JSON.parse(localStorage.getItem('yourfolio_projects') || '{}');
+      if (!projects[user.id]) projects[user.id] = [];
+      projects[user.id].push({ id: Date.now().toString(), ...projectData });
+      localStorage.setItem('yourfolio_projects', JSON.stringify(projects));
+      resolve({ success: true, project: projects[user.id][projects[user.id].length - 1] });
+    }, 400);
+  });
+};
+
+// 2. SEO & Custom Domain Mapping
+export const fetchSEO = async () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const token = localStorage.getItem('yourfolio_token');
+      if (!token) return resolve({ title: "", description: "", keywords: "" });
+      const email = atob(token);
+      const users = JSON.parse(localStorage.getItem('yourfolio_users') || '{}');
+      const seo = JSON.parse(localStorage.getItem('yourfolio_seo') || '{}');
+      resolve(seo[users[email].id] || { title: "", description: "", keywords: "" });
+    }, 200);
+  });
+};
+
+// 3. Analytics Tracking Engine
+export const fetchAnalytics = async () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        pageViews: Math.floor(Math.random() * 5000) + 1000,
+        uniqueVisitors: Math.floor(Math.random() * 2000) + 500,
+        averageTimeSpent: "2m 34s",
+        topReferrers: ["Google", "LinkedIn", "Twitter", "Direct"]
+      });
+    }, 500);
+  });
+};
+
+// 4. File Upload Engine (Base64 conversion for Edge deployment)
+export const uploadFile = async (file) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result); // Returns Base64 string masquerading as CDN link
+    reader.onerror = error => reject(error);
+  });
+};
+
+// 5. Contact Form Message Handling
+export const getMessages = async () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve([
+        { id: 1, name: "Sarah Smith", email: "sarah@company.com", message: "Love your portfolio! Are you available for a freelance project?", date: "2 hours ago" },
+        { id: 2, name: "Tech Recruiter", email: "talent@startup.io", message: "We are hiring a Lead Designer. Let's chat.", date: "1 day ago" }
+      ]);
+    }, 300);
+  });
+};
