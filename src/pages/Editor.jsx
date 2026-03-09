@@ -60,27 +60,27 @@ function Editor() {
 
   return (
     <div className="app-container">
-      {/* Canva-style Sidebar */}
-      <aside className="editor-sidebar canva-sidebar">
+      {/* Your-Folio Advanced Sidebar Workspace */}
+      <aside className="editor-sidebar yourfolio-sidebar">
         {/* Left Tabs */}
-        <div className="canva-tabs">
-          <button className={`canva-tab-btn ${activeTab === 'templates' ? 'active' : ''}`} onClick={() => setActiveTab('templates')}>
+        <div className="yourfolio-tabs">
+          <button className={`yourfolio-tab-btn ${activeTab === 'templates' ? 'active' : ''}`} onClick={() => setActiveTab('templates')}>
             <Layout size={20} /><span>Designs</span>
           </button>
-          <button className={`canva-tab-btn ${activeTab === 'elements' ? 'active' : ''}`} onClick={() => setActiveTab('elements')}>
+          <button className={`yourfolio-tab-btn ${activeTab === 'elements' ? 'active' : ''}`} onClick={() => setActiveTab('elements')}>
             <Box size={20} /><span>Elements</span>
           </button>
-          <button className={`canva-tab-btn ${activeTab === 'style' ? 'active' : ''}`} onClick={() => setActiveTab('style')}>
+          <button className={`yourfolio-tab-btn ${activeTab === 'style' ? 'active' : ''}`} onClick={() => setActiveTab('style')}>
             <Palette size={20} /><span>Styles</span>
           </button>
-          <button className={`canva-tab-btn ${activeTab === 'media' ? 'active' : ''}`} onClick={() => setActiveTab('media')}>
+          <button className={`yourfolio-tab-btn ${activeTab === 'media' ? 'active' : ''}`} onClick={() => setActiveTab('media')}>
             <ImageIcon size={20} /><span>Media</span>
           </button>
-          <button className={`canva-tab-btn ${activeTab === 'background' ? 'active' : ''}`} onClick={() => setActiveTab('background')}>
+          <button className={`yourfolio-tab-btn ${activeTab === 'background' ? 'active' : ''}`} onClick={() => setActiveTab('background')}>
             <Grid size={20} /><span>Backdrop</span>
           </button>
-          <button className={`canva-tab-btn ${activeTab === 'profile' ? 'active' : ''}`} onClick={() => setActiveTab('profile')}>
-            <Settings2 size={20} /><span>Profile</span>
+          <button className={`yourfolio-tab-btn ${activeTab === 'profile' ? 'active' : ''}`} onClick={() => setActiveTab('profile')}>
+            <Settings2 size={20} /><span>Data</span>
           </button>
         </div>
 
@@ -134,18 +134,28 @@ function Editor() {
                 <motion.div key="templates" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="control-group">
                   <div className="input-with-icon" style={{marginBottom: '1rem'}}>
                     <Search size={16} className="input-icon" />
-                    <input type="text" placeholder="Search 1,000+ Canva-style Templates..." style={{width: '100%', padding: '0.75rem 0.75rem 0.75rem 2.5rem', background: 'var(--bg-panel)', border: '1px solid var(--border-subtle)', borderRadius: '8px', color: 'white'}} />
+                    <input type="text" placeholder="Search 10,000+ Your-Folio Layouts..." style={{width: '100%', padding: '0.75rem 0.75rem 0.75rem 2.5rem', background: 'var(--bg-panel)', border: '1px solid var(--border-subtle)', borderRadius: '8px', color: 'white'}} />
                   </div>
+                  
+                  {/* Category Filter Pills */}
+                  <div style={{display: 'flex', gap: '0.5rem', overflowX: 'auto', paddingBottom: '0.5rem', marginBottom: '1rem'}}>
+                     {['All', 'Development', 'Design', 'Marketing', 'Photography', 'Business'].map(cat => (
+                        <div key={cat} style={{padding: '0.3rem 0.8rem', background: 'rgba(255,255,255,0.05)', borderRadius: '20px', fontSize: '0.8rem', whiteSpace: 'nowrap', cursor: 'pointer', border: cat === 'All' ? '1px solid var(--accent-primary)' : '1px solid transparent'}}>
+                           {cat}
+                        </div>
+                     ))}
+                  </div>
+
                   <div className="template-grid" style={{maxHeight: '400px', overflowY: 'auto', paddingRight: '10px'}}>
                     {['minimal', 'bold', 'classic', 'split', 'agency', 'developer', 'startup', 'creative', 'magazine', 'portfolio', 'landing'].map(t => (
                       <div key={t} className={`template-card ${portfolio.template === t ? 'active' : ''}`} onClick={() => handleChange('template', t)}>
                         <div className={`template-preview ${['minimal', 'bold', 'classic', 'split'].includes(t) ? t : 'classic'}`} style={{background: `linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)`}}></div>
-                        <span style={{textTransform:'capitalize'}}>{t}</span>
+                        <span style={{textTransform:'capitalize'}}>{t} Format</span>
                       </div>
                     ))}
                     <div className="template-card" style={{opacity: 0.5}}>
                        <div className="template-preview" style={{display:'flex', alignItems:'center', justifyContent:'center'}}><Layers size={24}/></div>
-                       <span>Load More (989+)</span>
+                       <span>Explore Premium (2k+)</span>
                     </div>
                   </div>
                 </motion.div>
@@ -157,15 +167,44 @@ function Editor() {
                     <Search size={16} className="input-icon" />
                     <input type="text" placeholder="Search Shapes, Graphics, Stickers..." style={{width: '100%', padding: '0.75rem 0.75rem 0.75rem 2.5rem', background: 'var(--bg-panel)', border: '1px solid var(--border-subtle)', borderRadius: '8px', color: 'white'}} />
                   </div>
-                  <label className="section-label">Basic Shapes</label>
-                  <div style={{display: 'flex', gap: '1rem', marginBottom: '2rem'}}>
-                     <button className="radius-btn" style={{padding: '1rem', flex: 1}}><Square size={24}/></button>
-                     <button className="radius-btn" style={{padding: '1rem', flex: 1}}><Circle size={24}/></button>
-                     <button className="radius-btn" style={{padding: '1rem', flex: 1}}><Triangle size={24}/></button>
-                     <button className="radius-btn" style={{padding: '1rem', flex: 1}}><Hexagon size={24}/></button>
+
+                  {/* Advanced Toolbox UI mimicking modern editors */}
+                  <div style={{display: 'flex', flexDirection: 'column', gap: '1.5rem', maxHeight: '450px', overflowY: 'auto', paddingRight: '10px'}}>
+                    <div>
+                      <div style={{display:'flex',justifyContent:'space-between', marginBottom:'0.75rem'}}>
+                         <label className="section-label" style={{marginBottom:0}}>Lines & Shapes</label>
+                         <span style={{fontSize:'0.8rem', color:'var(--text-muted)', cursor:'pointer'}}>See all</span>
+                      </div>
+                      <div style={{display: 'flex', gap: '0.5rem', flexWrap: 'wrap'}}>
+                         <button className="radius-btn" style={{padding: '0.75rem', flex: '1 1 calc(25% - 0.5rem)'}}><Square size={20}/></button>
+                         <button className="radius-btn" style={{padding: '0.75rem', flex: '1 1 calc(25% - 0.5rem)'}}><Circle size={20}/></button>
+                         <button className="radius-btn" style={{padding: '0.75rem', flex: '1 1 calc(25% - 0.5rem)'}}><Triangle size={20}/></button>
+                         <button className="radius-btn" style={{padding: '0.75rem', flex: '1 1 calc(25% - 0.5rem)'}}><Hexagon size={20}/></button>
+                         <button className="radius-btn" style={{padding: '0.75rem', flex: '1 1 calc(25% - 0.5rem)'}}><hr style={{width: '20px', border:'1px solid white'}}/></button>
+                         <button className="radius-btn" style={{padding: '0.75rem', flex: '1 1 calc(25% - 0.5rem)'}}><ArrowRight size={20}/></button>
+                      </div>
+                    </div>
+
+                    <div>
+                      <div style={{display:'flex',justifyContent:'space-between', marginBottom:'0.75rem'}}>
+                         <label className="section-label" style={{marginBottom:0}}>Graphics & Stickers</label>
+                         <span style={{fontSize:'0.8rem', color:'var(--text-muted)', cursor:'pointer'}}>See all</span>
+                      </div>
+                      <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.5rem'}}>
+                         <div style={{aspectRatio:'1', background:'rgba(255,255,255,0.05)', borderRadius:'8px', display:'flex', alignItems:'center', justifyContent:'center'}}><Sparkles size={24} color="#a855f7"/></div>
+                         <div style={{aspectRatio:'1', background:'rgba(255,255,255,0.05)', borderRadius:'8px', display:'flex', alignItems:'center', justifyContent:'center'}}><CheckCircle size={24} color="#10b981"/></div>
+                         <div style={{aspectRatio:'1', background:'rgba(255,255,255,0.05)', borderRadius:'8px', display:'flex', alignItems:'center', justifyContent:'center'}}><Settings2 size={24} color="#3b82f6"/></div>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <label className="section-label">Your-Folio Pro Assets</label>
+                      <div style={{padding: '1rem', background: 'linear-gradient(135deg, rgba(99,102,241,0.1), rgba(168,85,247,0.1))', border: '1px solid rgba(168,85,247,0.2)', borderRadius: '12px'}}>
+                         <p style={{color: 'var(--text-main)', fontSize: '0.85rem', marginBottom: '0.5rem'}}>Unlock 10,000+ vector illustrations that automatically sync to your theme color.</p>
+                         <button style={{width:'100%', padding:'0.5rem', background:'var(--text-main)', color:'black', borderRadius:'6px', fontWeight:'600', border:'none', cursor:'pointer'}}>Upgrade to Pro</button>
+                      </div>
+                    </div>
                   </div>
-                  <label className="section-label">Premium Vector Assets</label>
-                  <p style={{color: 'var(--text-muted)', fontSize: '0.9rem'}}>10,000+ vector elements automatically sync with your selected brand colors.</p>
                 </motion.div>
               )}
 
