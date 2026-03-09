@@ -164,14 +164,37 @@ function Landing() {
         </div>
       </section>
 
-      <section className="video-showcase-section">
+      <section className="portfolio-showcase-section">
         <div className="section-header">
-          <h2>Experience it in motion.</h2>
-          <p>Watch exactly how our premium components animate beautifully natively within the browser engine.</p>
+          <h2>Unlimited Portfolio Possibilities.</h2>
+          <p>From minimal dev-environments to vibrant creative showrooms, build exactly what represents you.</p>
         </div>
-        <div className="video-container">
-            {/* Extremely high fidelity WebP recording perfectly showcasing the Foliomate builder interface */}
-            <img src="/demo.webp" alt="Foliomate Builder Platform Demo" style={{ width: '100%', height: 'auto', display: 'block' }} />
+        <div className="portfolio-showcase-grid">
+           <div className="portfolio-showcase-card large">
+              <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1200&q=80" alt="Sleek Developer Portfolio" />
+              <div className="showcase-caption">
+                 <h3>Developer Theme</h3>
+                 <p>Dark mode optimized for your GitHub repos.</p>
+              </div>
+           </div>
+           
+           <div className="portfolio-showcase-column">
+             <div className="portfolio-showcase-card">
+                <img src="https://images.unsplash.com/photo-1542744094-3a31f272c490?auto=format&fit=crop&w=600&q=80" alt="Agency Theme" />
+                <div className="showcase-caption">
+                   <h3>Agency Theme</h3>
+                   <p>Built for teams and startups.</p>
+                </div>
+             </div>
+             
+             <div className="portfolio-showcase-card">
+                <img src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=600&q=80" alt="Creative Theme" />
+                <div className="showcase-caption">
+                   <h3>Creative Theme</h3>
+                   <p>Elegant layouts for designers.</p>
+                </div>
+             </div>
+           </div>
         </div>
       </section>
 
