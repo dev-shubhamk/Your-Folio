@@ -1,31 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
 
 :root {
-  /* Editor Theme (Dark glassmorphic) */
-  --bg-dark: #0f1115;
-  --bg-panel: #16181d;
-  --border-subtle: #ffffff1a;
-  --text-main: #f1f5f9;
-  --text-muted: #94a3b8;
-  --accent-primary: #6366f1;
-  --accent-hover: #4f46e5;
+  /* Editor Theme (Dark glassmorphic matching VoidZero) */
+  --bg-dark: #000000;
+  --bg-panel: #0a0a0a;
+  --border-subtle: rgba(255,255,255,0.1);
+  --border-light: rgba(255,255,255,0.15);
+  --text-main: #ffffff;
+  --text-muted: #888888;
+  --text-dim: #666666;
+  --accent-primary: #00e5ff;
+  --accent-secondary: #0055ff;
+  --accent-hover: #00d0e6;
   
+  /* Shared Gradients */
+  --void-gradient: linear-gradient(to right, var(--accent-secondary), var(--accent-primary));
+  --void-glow: 0 0 80px 20px rgba(0, 150, 255, 0.15);
+
   /* Portfolio Theme Colors */
-  --theme-blue-500: #3b82f6;
-  --theme-blue-100: #eff6ff;
-  --theme-blue-900: #1e3a8a;
-  
-  --theme-purple-500: #8b5cf6;
-  --theme-purple-100: #f5f3ff;
-  --theme-purple-900: #4c1d95;
-  
+  --theme-blue-500: #0070f3;
+  --theme-purple-500: #7928ca;
   --theme-emerald-500: #10b981;
-  --theme-emerald-100: #ecfdf5;
-  --theme-emerald-900: #064e3b;
-  
-  --theme-rose-500: #f43f5e;
-  --theme-rose-100: #fff1f2;
-  --theme-rose-900: #881337;
+  --theme-rose-500: #ff0080;
 }
 
 * {
@@ -1111,6 +1107,8 @@ body {
   height: 100vh;
   overflow-y: auto;
   background: var(--bg-dark);
+  font-family: 'Inter', sans-serif;
+  color: var(--text-main);
 }
 
 .landing-nav {
@@ -1119,11 +1117,12 @@ body {
   align-items: center;
   padding: 1.5rem 4rem;
   border-bottom: 1px solid var(--border-subtle);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(15, 17, 21, 0.8);
+  background: rgba(0, 0, 0, 0.7);
 }
 
 .nav-actions {
@@ -1151,51 +1150,89 @@ body {
 }
 
 .hero-section {
-  padding: 8rem 4rem 6rem;
+  padding: 12rem 4rem 10rem;
   text-align: center;
   position: relative;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+.landing-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  border-radius: 100px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: 2.5rem;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+.landing-badge:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-main);
+  border-color: var(--border-light);
+}
+
+.hero-bg-shapes {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
 .hero-bg-shapes .shape {
   position: absolute;
-  filter: blur(80px);
-  z-index: 0;
-  opacity: 0.4;
+  filter: blur(140px);
+  opacity: 0.5;
+  border-radius: 50%;
+  animation: float 20s infinite alternate cubic-bezier(0.5, 0, 0.5, 1);
+}
+
+@keyframes float {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(100px, 50px) scale(1.1); }
 }
 
 .shape-1 {
-  width: 400px;
-  height: 400px;
-  background: var(--accent-primary);
-  border-radius: 50%;
-  top: -100px;
-  left: 10%;
+  width: 600px;
+  height: 600px;
+  background: var(--accent-secondary);
+  top: -200px;
+  left: -100px;
 }
 
 .shape-2 {
-  width: 300px;
-  height: 300px;
-  background: #a855f7;
-  border-radius: 50%;
-  right: 15%;
-  top: 20%;
+  width: 500px;
+  height: 500px;
+  background: var(--accent-primary);
+  top: 100px;
+  right: -100px;
+  animation-delay: -5s;
 }
 
 .hero-title {
-  font-size: 5rem;
-  font-family: 'Outfit', sans-serif;
-  font-weight: 800;
+  font-size: 5.5rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.04em;
   line-height: 1.1;
   margin-bottom: 1.5rem;
   z-index: 1;
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #a855f7, var(--accent-primary));
+  background: var(--void-gradient);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1204,15 +1241,16 @@ body {
 .hero-subtitle {
   font-size: 1.25rem;
   color: var(--text-muted);
-  max-width: 600px;
+  max-width: 650px;
   margin: 0 auto 3rem;
-  line-height: 1.6;
+  line-height: 1.7;
+  font-weight: 400;
   z-index: 1;
 }
 
 .hero-cta {
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
   z-index: 1;
 }
 
@@ -1330,36 +1368,48 @@ body {
 }
 
 .hero-btn {
-  padding: 1rem 2rem;
-  border-radius: 12px;
-  font-size: 1.1rem;
-  font-weight: 600;
+  padding: 1rem 2.5rem;
+  border-radius: 100px;
+  font-size: 1rem;
+  font-weight: 500;
   text-decoration: none;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  transition: transform 0.2s, box-shadow 0.2s;
+  gap: 0.75rem;
+  transition: all 0.3s ease;
+  z-index: 1;
 }
 
 .hero-btn.primary {
-  background: var(--accent-primary);
-  color: white;
-  box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+  background: var(--text-main);
+  color: var(--bg-dark);
+  box-shadow: 0 0 40px rgba(255,255,255,0.2);
 }
 
 .hero-btn.secondary {
-  background: rgba(255,255,255,0.05);
-  color: white;
+  background: transparent;
+  color: var(--text-main);
   border: 1px solid var(--border-subtle);
 }
 
-.hero-btn:hover {
-  transform: translateY(-2px);
+.hero-btn.primary:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 60px rgba(255,255,255,0.3);
+}
+
+.hero-btn.secondary:hover {
+  background: rgba(255,255,255,0.05);
+  border-color: var(--border-light);
+}
+
+.features-section, .portfolio-showcase-section, .photo-gallery-section, .stats-section, .testimonials-section, .bottom-cta {
+  background: var(--bg-dark);
+  border-top: 1px solid var(--border-subtle);
+  position: relative;
 }
 
 .features-section {
-  padding: 4rem;
-  background: #090a0c;
+  padding: 8rem 4rem;
   display: flex;
   flex-direction: column;
   align-items: center;

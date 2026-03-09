@@ -23,37 +23,47 @@ function Landing() {
           <div className="shape shape-1"></div>
           <div className="shape shape-2"></div>
         </div>
+        <motion.div 
+          className="landing-badge"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
+          <Sparkles size={14} style={{ color: "var(--accent-primary)" }} />
+          <span>Foliomate 2.0 Engine is live</span>
+        </motion.div>
+
         <motion.h1 
           className="hero-title"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
         >
-          Build your dream portfolio. <br />
-          <span className="gradient-text">In minutes, not days.</span>
+          The Portfolio Engine <br />
+          <span className="gradient-text">for Creatives.</span>
         </motion.h1>
         
         <motion.p 
           className="hero-subtitle"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
         >
-          Join thousands of designers, developers, and creatives using yourfolio 
-          to present their work with premium interactive templates, lightning-fast hosting, and the power of AI. Build something extraordinary.
+          Join thousands of designers, developers, and creatives using our unified toolchain
+          to craft perfectly animated, interactive portfolios with unprecedented speed.
         </motion.p>
         
         <motion.div 
           className="hero-cta"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.6 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
         >
           <Link to="/signup" className="hero-btn primary">
-            Start Building <ArrowRight size={18} />
+            Start Building Free <ArrowRight size={18} />
           </Link>
           <Link to="/app" className="hero-btn secondary">
-            Try the Editor
+            Explore the Editor
           </Link>
         </motion.div>
       </header>
