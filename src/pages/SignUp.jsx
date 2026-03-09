@@ -52,7 +52,7 @@ function SignUp() {
         const { token } = await oauthLogin(pendingUser.provider, pendingUser.email);
         localStorage.setItem('yourfolio_token', token);
       }
-      navigate('/app');
+      navigate('/');
     } catch (err) {
       setError(err.message);
     }

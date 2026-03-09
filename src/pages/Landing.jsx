@@ -8,7 +8,9 @@ function Landing() {
     <div className="landing-page">
       <nav className="landing-nav">
         <div className="nav-brand">
-          <img src="/logo.png" className="app-logo" alt="Your Folio Powered by Foliomate" />
+          <Link to="/" style={{display: 'flex', alignItems: 'center'}}>
+            <img src="/logo.png" className="app-logo" alt="Your Folio Powered by Foliomate" />
+          </Link>
         </div>
         <div className="nav-actions">
           <Link to="/app" className="nav-link">Features</Link>

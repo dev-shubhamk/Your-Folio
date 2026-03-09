@@ -14,7 +14,7 @@ function GlobalLayout() {
     <div className="global-layout">
       {/* Global Sidebar Nav */}
       <nav className="global-nav">
-        <div className="nav-brand" style={{marginTop: '1rem', marginBottom: '2rem'}}>
+        <div className="nav-brand" style={{marginTop: '1rem', marginBottom: '2rem', cursor: 'pointer'}} onClick={() => navigate('/')}>
           <img src="/logo.png" className="app-logo" alt="Your Folio" />
         </div>
         
