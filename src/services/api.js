@@ -57,6 +57,44 @@ export const login = async (email, password) => {
   });
 };
 
+export const oauthLogin = async (provider) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const email = `${provider.toLowerCase().replace(' ', '')}@example.com`;
+      const name = `${provider} User`;
+      
+      const users = JSON.parse(localStorage.getItem('yourfolio_users') || '{}');
+      if (!users[email]) {
+        users[email] = { id: Date.now().toString(), name, email, password: 'oauth' };
+        localStorage.setItem('yourfolio_users', JSON.stringify(users));
+        
+        // Initialize default portfolio
+        const portfolios = JSON.parse(localStorage.getItem('yourfolio_portfolios') || '{}');
+        portfolios[users[email].id] = {
+          name: name,
+          role: `${provider} Connected Creator`,
+          bio: `I joined Your-Folio using my ${provider} account!`,
+          contactEmail: email,
+          themeColor: 'emerald',
+          font: 'font-playfair',
+          template: 'classic',
+          avatar: 'https://ui-avatars.com/api/?name=' + encodeURIComponent(name),
+          cover: 'https://images.unsplash.com/photo-1557682250-33bd709cbe85',
+          backgroundTexture: 'dots',
+          borderRadius: 'lg',
+          showSocials: 1
+        };
+        localStorage.setItem('yourfolio_portfolios', JSON.stringify(portfolios));
+      }
+      
+      resolve({
+        token: btoa(email),
+        user: { id: users[email].id, name: users[email].name, email }
+      });
+    }, 500);
+  });
+};
+
 export const fetchPortfolio = async () => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
